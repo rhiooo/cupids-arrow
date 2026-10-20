@@ -1,0 +1,164 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#fff0f5">
+  <meta name="description"
+        content="Cupid's Arrow — a romantic archery adventure.">
+  <title>Cupid's Arrow</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <div id="app">
+    <div class="ambient" aria-hidden="true"></div>
+
+    <header class="topbar">
+      <div class="brand">💘 <span id="brandTitle">Cupid's Arrow</span></div>
+      <div class="toolbar">
+        <button id="soundBtn" class="icon-btn"
+                aria-label="Toggle sound">🔊</button>
+        <button id="fullscreenBtn" class="icon-btn"
+                aria-label="Toggle fullscreen">⛶</button>
+      </div>
+    </header>
+
+    <main>
+      <section id="welcome" class="screen active">
+        <div class="panel welcome-panel">
+          <div class="hero-heart" aria-hidden="true">💘</div>
+          <p class="eyebrow">A LITTLE LOVE STORY</p>
+          <h1 id="gameTitle">Cupid's Arrow</h1>
+          <p class="subtitle">
+            Ten magical levels. One special heart.
+            Can you make every arrow count?
+          </p>
+
+          <div class="instructions">
+            <p id="controlHint">
+              Pull backward from the bow, aim, and release to shoot.
+            </p>
+            <p>🎯 Hit the heart for a special surprise!</p>
+            <p>💗 Earn points, build combos, and protect your lives.</p>
+          </div>
+
+          <label for="playerName">Your name</label>
+          <input id="playerName" type="text" maxlength="20"
+                 placeholder="Your name" value="Sweetheart">
+
+          <label for="difficulty">Choose your difficulty</label>
+          <select id="difficulty">
+            <option value="easy">Easy — Sweet & Relaxed</option>
+            <option value="normal" selected>Normal — Romantic Adventure</option>
+            <option value="hard">Hard — True Love Challenge</option>
+          </select>
+
+          <button id="startBtn" class="primary-btn">
+            💘 Start Game
+          </button>
+          <p class="small-note">
+            No downloads, accounts, or internet required.
+          </p>
+        </div>
+      </section>
+
+      <section id="game" class="screen">
+        <div class="game-shell">
+          <div class="hud">
+            <div class="stat"><small>LEVEL</small><strong id="levelValue">1/10</strong></div>
+            <div class="stat"><small>SCORE</small><strong id="scoreValue">0</strong></div>
+            <div class="stat"><small>BEST</small><strong id="bestValue">0</strong></div>
+            <div class="stat"><small>ARROWS</small><strong id="arrowsValue">7</strong></div>
+            <div class="stat"><small>COMBO</small><strong id="comboValue">0</strong></div>
+            <div class="stat"><small>BULL'S-EYES</small><strong id="bullValue">0</strong></div>
+          </div>
+
+          <div class="statusbar">
+            <span id="livesValue" aria-label="Lives">❤️❤️❤️</span>
+            <span id="windValue">Wind: Calm</span>
+            <span id="powerValue">Power: 0%</span>
+          </div>
+
+          <div id="arena" class="arena">
+            <canvas id="gameCanvas"
+                    aria-label="Archery game. Drag backward from the bow and release to shoot.">
+            </canvas>
+            <div id="floatingText" class="floating-text"
+                 aria-live="polite"></div>
+            <div id="glow" class="glow"></div>
+          </div>
+
+          <div class="game-controls">
+            <button id="pauseBtn" class="secondary-btn">⏸ Pause</button>
+            <button id="restartLevelBtn" class="secondary-btn">↻ Level</button>
+            <button id="restartGameBtn" class="secondary-btn">⟲ New Game</button>
+          </div>
+          <p id="gameHint" class="game-hint">
+            Drag backward from the bow to aim, then release.
+          </p>
+        </div>
+      </section>
+
+      <section id="pause" class="screen overlay-screen">
+        <div class="panel modal-panel">
+          <div class="modal-emoji">🌙</div>
+          <h2>Taking a Little Break?</h2>
+          <p>Even Cupid needs a moment to rest.</p>
+          <button id="resumeBtn" class="primary-btn">▶ Resume</button>
+          <button id="pauseRestartBtn" class="secondary-btn">↻ Restart Level</button>
+          <button id="pauseHomeBtn" class="secondary-btn">⌂ Main Menu</button>
+        </div>
+      </section>
+
+      <section id="levelComplete" class="screen overlay-screen">
+        <div class="panel modal-panel">
+          <div class="modal-emoji">🎉</div>
+          <p class="eyebrow">LOVE IS IN THE AIR</p>
+          <h2 id="levelCompleteTitle">Level Complete!</h2>
+          <p id="levelCompleteText"></p>
+          <div class="reward" id="levelReward"></div>
+          <button id="nextLevelBtn" class="primary-btn">
+            Continue Adventure →
+          </button>
+        </div>
+      </section>
+
+      <section id="gameOver" class="screen overlay-screen">
+        <div class="panel modal-panel">
+          <div class="modal-emoji">💔</div>
+          <h2>Love Deserves Another Chance</h2>
+          <p id="gameOverText"></p>
+          <button id="tryAgainBtn" class="primary-btn">💗 Try Again</button>
+          <button id="gameOverHomeBtn" class="secondary-btn">Main Menu</button>
+        </div>
+      </section>
+
+      <section id="final" class="screen overlay-screen">
+        <div class="panel final-panel">
+          <div class="hero-heart">💖</div>
+          <p class="eyebrow">OUR LITTLE LOVE STORY</p>
+          <h2>You Did It!</h2>
+          <p id="finalPlayer"></p>
+          <p class="final-message">
+            Every arrow finds its way back to you. I love you!
+          </p>
+          <div class="final-stats">
+            <div><small>Total Score</small><strong id="finalScore">0</strong></div>
+            <div><small>High Score</small><strong id="finalBest">0</strong></div>
+            <div><small>Accuracy</small><strong id="finalAccuracy">0%</strong></div>
+            <div><small>Total Hits</small><strong id="finalHits">0</strong></div>
+            <div><small>Misses</small><strong id="finalMisses">0</strong></div>
+            <div><small>Bull's-eyes</small><strong id="finalBulls">0</strong></div>
+          </div>
+          <button id="playAgainBtn" class="primary-btn">💘 Play Again</button>
+          <button id="shareBtn" class="secondary-btn">↗ Share Result</button>
+          <p id="shareStatus" class="small-note" aria-live="polite"></p>
+        </div>
+      </section>
+    </main>
+  </div>
+</body>
+</html>
