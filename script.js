@@ -9,7 +9,7 @@
 const CONFIG = {
   title: "Cupid's Arrow",
   player: "Sweetheart",
-  levels: 10,
+  levels: 5,
 
   gravity: 370,
   powerMin: 250,
